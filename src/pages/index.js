@@ -1,4 +1,32 @@
-import Head from 'next/head'
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { UserList } from "../UserList";
+
+function App() {
+  const [users, setusers] = useState([]);
+
+  const getUsers = () => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/users")
+      .then((res) => setusers(res.data))
+      .catch((err) => console.error(err));
+  };
+  useEffect(() => getUsers(), []);
+  console.log("hey", users);
+
+  return (
+    <div className="App">
+      <h1 className="title">RoboFriends</h1>
+      <UserList users={users} />
+    </div>
+  );
+}
+
+export default App;
+
+
+
+/*import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
@@ -111,4 +139,4 @@ export default function Home() {
       </main>
     </>
   )
-}
+} */
